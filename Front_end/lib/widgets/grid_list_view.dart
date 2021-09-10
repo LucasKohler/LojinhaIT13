@@ -1,31 +1,19 @@
-// Copyright 2019 The Flutter team. All rights reserved.
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-
 import 'package:flutter/material.dart';
-import 'package:front_end/models/photo.dart';
+import 'package:front_end/DTOs/Product.dart';
 import 'package:front_end/widgets/product_card.dart';
-import 'package:front_end/utils/array.dart' as photos;
 
-class GridListView extends StatelessWidget {
-  const GridListView({
-    Key? key,
-  }) : super(key: key);
+class GridViewList extends StatelessWidget {
+  GridViewList(this._products, {Key? key}) : super(key: key);
 
-  // Os widgets estão stateless, mas devem virar stateful caso precisem carregar os produtos do banco de dados
-  // final GridListDemoType type;
+  final List<Product> _products;
 
-  // Array estático de imagens apenas para teste visual
-
-  List<Photo> _photos(BuildContext context) {
-    return photos.list;
+  List<Product> _productListBuilder(BuildContext context) {
+    return _products;
   }
 
-  // Construção do layout do grid_list_view
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // WARNING: Talvez tenha que mudar o contrutor do gridView no futuro
       body: GridView.count(
         restorationId: 'grid_view_demo_grid_offset',
         crossAxisCount: 2,
@@ -33,9 +21,9 @@ class GridListView extends StatelessWidget {
         crossAxisSpacing: 8,
         padding: const EdgeInsets.all(16),
         childAspectRatio: 1,
-        children: _photos(context).map<Widget>((photo) {
+        children: _productListBuilder(context).map<Widget>((product) {
           return ProductCard(
-            photo: photo,
+            product: product,
           );
         }).toList(),
       ),
